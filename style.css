@@ -4,11 +4,3 @@ body {
 
 /* YOUR CSS CODE GOES HERE */
 
-.arc path {
-  stroke: #ffffff;
-}
-
-.title {
-  fill: green;
-  font-weight: italic;
-}
