@@ -6,75 +6,47 @@ window.onload = () => {
   console.log("YOUR CODE GOES HERE");
 
   // Load the data set from the assets folder:
-  var svg = d3.select("svg"),
-    width = svg.attr("width"),
-    height = svg.attr("height"),
-    radius = Math.min(width, height) / 2;
+  var margin = {top: 10, right: 30, bottom: 30, left: 60},
+    width = 460 - margin.left - margin.right,
+    height = 400 - margin.top - margin.bottom;
 
-  var g = svg
-    .append("g")
-    .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+// append the svg object to the body of the page
+var svg = d3.select("#my_dataviz")
+  .append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform",
+          "translate(" + margin.left + "," + margin.top + ")");
 
-  var color = d3.scaleOrdinal([
-    "gray",
-    "green",
-    "brown",
-    "orange",
-    "yellow",
-    "red",
-    "purple",
-  ]);
+//Read the data
+d3.csv("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/2_TwoNum.csv", function(data) {
 
-  var pie = d3.pie().value(function (d) {
-    return d.percent;
-  });
+  // Add X axis
+  var x = d3.scaleLinear()
+    .domain([0, 4000])
+    .range([ 0, width ]);
+  svg.append("g")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
 
-  var path = d3
-    .arc()
-    .outerRadius(radius - 10)
-    .innerRadius(0);
+  // Add Y axis
+  var y = d3.scaleLinear()
+    .domain([0, 500000])
+    .range([ height, 0]);
+  svg.append("g")
+    .call(d3.axisLeft(y));
 
-  var label = d3
-    .arc()
-    .outerRadius(radius)
-    .innerRadius(radius - 80);
+  // Add dots
+  svg.append('g')
+    .selectAll("dot")
+    .data(data)
+    .enter()
+    .append("circle")
+      .attr("cx", function (d) { return x(d.GrLivArea); } )
+      .attr("cy", function (d) { return y(d.SalePrice); } )
+      .attr("r", 1.5)
+      .style("fill", "#69b3a2")
 
-  d3.csv("https://cdn.glitch.global/cd8c69a3-09de-42d9-8c2b-baee6d9e8d44/population.csv?v=1667658674785", function (error, data) {
-    if (error) {
-      throw error;
-    }
-    
-    var arc = g
-      .selectAll(".arc")
-      .data(pie(data))
-      .enter()
-      .append("g")
-      .attr("class", "arc");
-
-    arc
-      .append("path")
-      .attr("d", path)
-      .attr("fill", function (d) {
-        return color(d.data.states);
-      });
-
-    console.log(arc);
-
-    arc
-      .append("text")
-      .attr("transform", function (d) {
-        return "translate(" + label.centroid(d) + ")";
-      })
-
-      .text(function (d) {
-        return d.data.states;
-      });
-  });
-
-  svg
-    .append("g")
-    .attr("transform", "translate(" + (width / 2 - 120) + "," + 20 + ")")
-    .append("text")
-    .text("Top population states in india")
-    .attr("class", "title");
+})
 };
