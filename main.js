@@ -43,7 +43,7 @@ window.onload = () => {
     if (error) {
       throw error;
     }
-
+    
     var arc = g
       .selectAll(".arc")
       .data(pie(data))
