@@ -23,11 +23,11 @@ window.onload = () => {
     "https://cdn.glitch.com/3406f498-ccaa-4592-93d3-c0a3a2e58c43%2Fcars.csv?v=1604907277091"
   ).then(function (data) {
     // Add X axis
+    console.log(data)
     var x = d3.scaleLinear()
     .domain([
     	d3.min([0,d3.min(data,function (d) { return d['Horsepower(HP)'] })]),
-    	d3.max([0,d3.max(data,function (d) { return d['Horsepower(HP)'] })]),
-      console.log(d3.max([0,d3.max(data,function (d) { return d['Horsepower(HP)'] })]))
+    	d3.max([0,d3.max(data,function (d) { return d['Horsepower(HP)'] })])
     	])
     .range([0, width]);
     svg
