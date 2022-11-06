@@ -6,8 +6,8 @@ window.onload = () => {
   console.log("YOUR CODE GOES HERE");
   // set the dimensions and margins of the graph
   var margin = { top: 10, right: 30, bottom: 30, left: 60 },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 960 - margin.left - margin.right,
+    height = 700 - margin.top - margin.bottom;
 
   // append the svg object to the body of the page
   var svg = d3
@@ -23,14 +23,22 @@ window.onload = () => {
     "https://cdn.glitch.com/3406f498-ccaa-4592-93d3-c0a3a2e58c43%2Fcars.csv?v=1604907277091"
   ).then(function (data) {
     // Add X axis
-    var x = d3.scaleLinear().domain([0, 1000]).range([0, width]);
+    var x = d3.scaleLinear()
+    .domain([
+    	d3.min([0,d3.min(data,function (d) { return d['Horsepower(HP)'] })]),
+    	d3.max([0,d3.max(data,function (d) { return d['Horsepower(HP)'] })]),
+      console.log(d3.max([0,d3.max(data,function (d) { return d['Horsepower(HP)'] })]))
+    	])
+    .range([0, width]);
     svg
       .append("g")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(x));
 
     // Add Y axis
-    var y = d3.scaleLinear().domain([0, 500]).range([height, 0]);
+    var y = d3.scaleLinear()
+    .domain([0, 80])
+    .range([height, 0]);
     svg.append("g").call(d3.axisLeft(y));
 
     // Add dots
@@ -46,7 +54,7 @@ window.onload = () => {
       .attr("cy", function (d) {
         return y(d['City Miles Per Gallon']);
       })
-      .attr("r", 1.5)
+      .attr("r", 3)
       .style("fill", "#69b3a2");
   });
 };
