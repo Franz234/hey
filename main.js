@@ -33,6 +33,11 @@ window.onload = () => {
     var y = d3.scaleLinear().domain([0, 70]).range([height, 0]);
     svg.append("g").call(d3.axisLeft(y));
 
+    // Color scale: give me a specie name, I return a color
+    var color = d3.scaleOrdinal()
+    .domain(["setosa", "versicolor", "virginica" ])
+    .range([ "#440154ff", "#21908dff", "#fde725ff"])
+  
     // Add dots
     svg
       .append("g")
