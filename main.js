@@ -34,37 +34,37 @@ window.onload = () => {
     svg.append("g").call(d3.axisLeft(y));
 
     // Color scale: give me a specie name, I return a color
-    var color = d3.scaleOrdinal()
-    .domain(["Minivan", "Sedan", "Sports Car", "SUV", "Wagon"])
-    .range([ "red", "blue", "green", "black", "yellow"])
-  
+    var color = d3
+      .scaleOrdinal()
+      .domain(["Minivan", "Sedan", "Sports Car", "SUV", "Wagon"])
+      .range(["red", "blue", "green", "black", "yellow"]);
+
     // Highlight the car type that is hovered
-  var highlight = function(d){
+    var highlight = function (d) {
+      car_type = d["Type"];
 
-    car_type = d['Type']
+      d3.selectAll(".dot")
+        .transition()
+        .duration(200)
+        .style("fill", "lightgrey")
+        .attr("r", 3);
 
-    d3.selectAll(".dot")
-      .transition()
-      .duration(200)
-      .style("fill", "lightgrey")
-      .attr("r", 3)
+      d3.selectAll("." + car_type)
+        .transition()
+        .duration(200)
+        .style("fill", color(car_type))
+        .attr("r", 7);
+    };
 
-    d3.selectAll("." + car_type)
-      .transition()
-      .duration(200)
-      .style("fill", color(car_type))
-      .attr("r", 7)
-  }
-  
-  // Highlight the specie that is hovered
-  var doNotHighlight = function(){
-    d3.selectAll(".dot")
-      .transition()
-      .duration(200)
-      .style("fill", "lightgrey")
-      .attr("r", 5 )
-  }
-  
+    // Highlight the specie that is hovered
+    var doNotHighlight = function () {
+      d3.selectAll(".dot")
+        .transition()
+        .duration(200)
+        .style("fill", "lightgrey")
+        .attr("r", 5);
+    };
+
     // Add dots
     svg
       .append("g")
@@ -72,7 +72,9 @@ window.onload = () => {
       .data(data)
       .enter()
       .append("circle")
-      .attr("class", function (d) { return "dot" + d['Type']})
+      .attr("class", function (d) {
+        return "dot" + d["Type"];
+      })
       .attr("cx", function (d) {
         return x(d["Horsepower(HP)"]);
       })
@@ -80,7 +82,10 @@ window.onload = () => {
         return y(d["City Miles Per Gallon"]);
       })
       .attr("r", 3)
-      .style("fill", function (d) { return color(d['Type'])})
-      .on("mouseover");
+      .style("fill", function (d) {
+        return color(d["Type"]);
+      })
+      .on("mouseover", highlight)
+      .on("mouseleave", doNotHighlight);
   });
 };
