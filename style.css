@@ -1,10 +1,6 @@
 body {
   height: 100%;
+  font: 10px sans-serif;
 }
 
 /* YOUR CSS CODE GOES HERE */
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 2px;
-}
