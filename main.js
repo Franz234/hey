@@ -31,10 +31,29 @@ window.onload = () => {
   var yAxis = d3.svg.axis()
   .scale(y)
   .orient("left")
-  .tickSize(-width)
+  .tickSize(-width);
+  
+  var xCat = "Horsepower(HP)",
+  yCat = "City Miles Per Gallon",
+  rCat = "-",
+  colorCat = "-";
+  
+  var labels = {
+    "Name" : "Car name",
+    "Type" : 'Car type',
+    "AWD": "AWD",
+    "RWD": "RWD",
+  }
 
   // Load the data set from the assets folder:
-  d3.csv(
-    "https://cdn.glitch.com/3406f498-ccaa-4592-93d3-c0a3a2e58c43%2Fcars.csv?v=1604907277091"
-  ).then(function (data) {});
+  d3.csv("https://cdn.glitch.com/3406f498-ccaa-4592-93d3-c0a3a2e58c43%2Fcars.csv?v=1604907277091", function(data) {
+    data.forEach(function(d) {
+      d['Horsepower(HP)'] = +d['Horsepower(HP)'];
+      d['City Miles Per Gallon'] = +d['City Miles Per Gallon'];
+      d.Name = +d.Name;
+      d.Type = +d.Type;
+      d.AWD = +d.AWD;
+      d.RWD = +d.RWD;
+    });
+  }
 };
