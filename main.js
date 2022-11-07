@@ -33,38 +33,20 @@ window.onload = () => {
     var y = d3.scaleLinear().domain([0, 70]).range([height, 0]);
     svg.append("g").call(d3.axisLeft(y));
 
-    // Color scale: give me a specie name, I return a color
-    var color = d3
+    // Color scale: give me a car type, I return a color
+    var car = d3
       .scaleOrdinal()
       .domain(["Minivan", "Sedan", "Sports Car", "SUV", "Wagon"])
       .range(["red", "blue", "green", "black", "yellow"]);
 
-    // Highlight the car type that is hovered
+    // Highlight the dot that is hovered
     var highlight = function (d) {
       d3.select(this).attr('stroke', '#333').attr('stroke-width', 2);
-//       var car_type = d["Type"];
-
-//       d3.selectAll(".dot")
-//         .transition()
-//         .duration(200)
-//         .style("fill", "lightgrey")
-//         .attr("r", 3);
-
-//       d3.selectAll("." + car_type)
-//         .transition()
-//         .duration(200)
-//         .style("fill", color(car_type))
-//         .attr("r", 7);
     };
 
-    // Highlight the specie that is hovered
+    // Highlight the dot that is hovered
     var doNotHighlight = function () {
       d3.select(this).attr('stroke', null);
-      // d3.selectAll(".dot")
-      //   .transition()
-      //   .duration(200)
-      //   .style("fill", "lightgrey")
-      //   .attr("r", 5);
     };
 
     // Add dots
@@ -85,37 +67,50 @@ window.onload = () => {
       })
       .attr("r", 5)
       .style("fill", function (d) {
-        return color(d["Type"]);
+        return car(d["Type"]);
       })
       .on("mouseover", highlight)
       .on("mouseleave", doNotHighlight);
 
     //Legend
-    var legend = svg
-      .selectAll(".legend")
-      .data(color.domain())
-      .enter()
-      .append("g")
-      .attr("class", "legend")
-      .attr("transform", function (d, i) {
-        return "translate(0," + i * 20 + ")";
-      });
+    function colorLegend(container) {
+      const titlePadding = 14;
+      const entrySpacing = 16;
+      const entryRadius = 5;
+      const labelOffset = 4;
+      const baselineOffset = 4;
+      
+      const title = container.append('text')
+      .attr('x',0)
+      .attr()
+    }
+    
+    
+//     var legend = svg
+//       .selectAll(".legend")
+//       .data(car.domain())
+//       .enter()
+//       .append("g")
+//       .attr("class", "legend")
+//       .attr("transform", function (d, i) {
+//         return "translate(0," + i * 20 + ")";
+//       });
 
-    legend
-      .append("rect")
-      .attr("x", width - 18)
-      .attr("width", 18)
-      .attr("height", 18)
-      .style("fill", color);
+//     legend
+//       .append("rect")
+//       .attr("x", width - 18)
+//       .attr("width", 18)
+//       .attr("height", 18)
+//       .style("fill", color);
 
-    legend
-      .append("text")
-      .attr("x", width - 24)
-      .attr("y", 9)
-      .attr("dy", ".35em")
-      .style("text-anchor", "end")
-      .text(function (d) {
-        return d;
-      });
+//     legend
+//       .append("text")
+//       .attr("x", width - 24)
+//       .attr("y", 9)
+//       .attr("dy", ".35em")
+//       .style("text-anchor", "end")
+//       .text(function (d) {
+//         return d;
+//       });
   });
 };
