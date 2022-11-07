@@ -81,7 +81,7 @@ window.onload = () => {
       .attr("cy", function (d) {
         return y(d["City Miles Per Gallon"]);
       })
-      .attr("r", 3)
+      .attr("r", 5)
       .style("fill", function (d) {
         return color(d["Type"]);
       })
