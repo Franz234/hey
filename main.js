@@ -41,28 +41,30 @@ window.onload = () => {
 
     // Highlight the car type that is hovered
     var highlight = function (d) {
-      var car_type = d["Type"];
+      d3.select(this).attr('stroke', '#333').attr('stroke-width', 2);
+//       var car_type = d["Type"];
 
-      d3.selectAll(".dot")
-        .transition()
-        .duration(200)
-        .style("fill", "lightgrey")
-        .attr("r", 3);
+//       d3.selectAll(".dot")
+//         .transition()
+//         .duration(200)
+//         .style("fill", "lightgrey")
+//         .attr("r", 3);
 
-      d3.selectAll("." + car_type)
-        .transition()
-        .duration(200)
-        .style("fill", color(car_type))
-        .attr("r", 7);
+//       d3.selectAll("." + car_type)
+//         .transition()
+//         .duration(200)
+//         .style("fill", color(car_type))
+//         .attr("r", 7);
     };
 
     // Highlight the specie that is hovered
     var doNotHighlight = function () {
-      d3.selectAll(".dot")
-        .transition()
-        .duration(200)
-        .style("fill", "lightgrey")
-        .attr("r", 5);
+      d3.select(this).attr('stroke', null);
+      // d3.selectAll(".dot")
+      //   .transition()
+      //   .duration(200)
+      //   .style("fill", "lightgrey")
+      //   .attr("r", 5);
     };
 
     // Add dots
