@@ -55,5 +55,5 @@ window.onload = () => {
       d.AWD = +d.AWD;
       d.RWD = +d.RWD;
     });
-  }
+  });
 };
