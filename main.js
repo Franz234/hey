@@ -8,7 +8,7 @@ window.onload = () => {
   var margin = { top: 10, right: 30, bottom: 30, left: 60 },
     width = 960 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
-
+  var x = d3.scaleLinear().domain([0, 500]).range([0, width]);
   // append the svg object to the body of the page
   var svg = d3
     .select("body")
@@ -24,7 +24,7 @@ window.onload = () => {
     .then(function (data) {
       console.log(data)
       // Add X axis
-      var x = d3.scaleLinear().domain([0, 500]).range([0, width]);
+      
       svg
         .append("g")
         .attr("transform", "translate(0," + height + ")")
