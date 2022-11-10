@@ -8,7 +8,7 @@ window.onload = () => {
   var margin = { top: 10, right: 30, bottom: 30, left: 60 },
     width = 960 - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
-  var x = d3.scaleLinear().domain([0, 500]).range([0, width]);
+  var x = d3.scaleLinear().domain([0, 200000]).range([0, width]);
   var y = d3.scaleLinear().domain([0, 70]).range([height, 0]);
   // append the svg object to the body of the page
   var svg = d3
@@ -41,7 +41,7 @@ window.onload = () => {
         .enter()
         .append("circle")
         .attr("cx", function (d) {
-          return x(d['Horsepower(HP)']);
+          return x(d['Retail Price']);
         })
         .attr("cy", function (d) {
           return y(d['City Miles Per Gallon']);
