@@ -13,9 +13,9 @@ window.onload = () => {
     height = outerHeight - margin.top - margin.bottom;
 
   // create x,y and hover
-  var x = d3.scaleLiner().range([0, width]).nice();
+  var x = d3.scaleLinear().range([0, width]);
 
-  var y = d3.scaleLiner().range([height, 0]).nice();
+  var y = d3.scaleLinear().range([height, 0]);
 
   var xAxis = d3.svg.axis().scale(x).orient("bottom").tickSize(-height);
 
