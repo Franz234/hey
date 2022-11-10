@@ -47,5 +47,36 @@ d3.csv(
       d.AWD = +d.AWD;
       d.RWD = +d.RWD;
     });
+    
+    var xMax = d3.max(data, function(d) {
+      return d[xCat];
+    }) * 1.05,
+        xMin = d3.min(data, function(d) {
+          return d[xCat];
+        }),
+        xMin = xMin > 0 ? 0 : xMin,
+        yMax = d3.max(data, function(d) {
+          return d[yCat];
+        }) * 1.05,
+        yMin = d3.min(data, function(d) {
+          return d[yCat];
+        }),
+        yMin = yMin > 0 ? 0 : yMin;
+    x.domain([xMin, xMax]);
+    y.domain([yMin, yMax]);
+    
+    var color = d3.scale.category10();
+    
+    var tip = d3.tip()
+        .attr("class", "d3-tip")
+        .offset([-10, 0])
+        .html(function(d) {
+          return labels[xCat] + ": " + d[xCat] + "<br>" + labels[yCat] + ": " + d[yCat] + "<br>" + labels[rCat] + ": " + d[rCat];
+        });
+    
+    var zoomBeh = d3.behavior.zoom()
+        .x(x)
+        .y(y)
+        .scaleExtent([0, 1000])
   }
 );
