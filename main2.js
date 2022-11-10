@@ -32,7 +32,6 @@ window.onload = () => {
     AWD: "AWD",
     RWD: "RWD",
   };
-
   // Load the data set from the assets folder:
   d3.csv(
     "https://cdn.glitch.com/3406f498-ccaa-4592-93d3-c0a3a2e58c43%2Fcars.csv?v=1604907277091"
