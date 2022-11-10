@@ -78,5 +78,48 @@ d3.csv(
         .x(x)
         .y(y)
         .scaleExtent([0, 1000])
+        .on("zoom", zoom);
+    
+    var svg = d3.select("body")
+        .append("svg")
+        .attr("width", outerWidth)
+        .attr('height', outerHeight)
+        .append("g")
+        .attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+        .call(zoomBeh);
+    svg.call(tip);
+    svg.append("rect")
+        .attr("width", width)
+        .attr("height", height)
+    svg.append("g")
+        .classed("x axis", true)
+        .attr("transform", "translate(0,"+height+")")
+        .call(xAxis)
+        .append("text")
+        .classed("label", true)
+        .attr("x", width)
+        .attr("y", margin.bottom - 10)
+        .style("text-anchor", "end")
+        .text("Horsepower(HP)")
+    svg.append("g")
+        .classed("y axis", true)
+        .attr("transform", "translate(0," + height + ")")
+        .call(yAxis)
+        .
+    
+    function zoom() {
+        svg.select(".x.axis").call(xAxis);
+        svg.select(".y.axis").call(yAxis);
+        svg.selectAll(".dot")
+            .attr({
+                cx: function(d) {
+                    return x(d[xCat]);
+                },
+                cy: function(d) {
+                    return y(d[yCat]);
+                }
+            })
+            // .attr("transform", transform);
+    }
   }
 );
